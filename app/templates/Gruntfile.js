@@ -200,7 +200,8 @@ module.exports = function (grunt) {
           cwd: '<%%= yeoman.app %>/styles',
           src: ['*.{scss,sass}'],
           dest: '.tmp/styles',
-          ext: '.css'
+          ext: '.css',
+          tasks:['autoprefixer']
         }]
       },
       server: {
@@ -209,7 +210,8 @@ module.exports = function (grunt) {
           cwd: '<%%= yeoman.app %>/styles',
           src: ['*.{scss,sass}'],
           dest: '.tmp/styles',
-          ext: '.css'
+          ext: '.css',
+          tasks:['autoprefixer']
         }]
       }
     },<% } %><% if (includeRequireJS) { %>
@@ -256,6 +258,19 @@ module.exports = function (grunt) {
       css: ['<%%= yeoman.dist %>/styles/{,*/}*.css'],
       options: {
         dirs: ['<%%= yeoman.dist %>']
+      }
+    },
+    autoprefixer: {
+        options: {
+          browsers: ['last 2 versions', 'ie 8', 'ie 9']
+        },
+        dist: {
+          files: [{
+            expand: true,
+            cwd: '.tmp/styles/',
+            src: '{,*/}*.css',
+            dest: '.tmp/styles/'
+        }]
       }
     },
     imagemin: {
